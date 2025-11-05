@@ -3,235 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>گان‌های کلاف</title>
+    <title>در حال بروزرسانی</title>
     <style>
         body {
-            background-color: #0d0d0d;
-            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('https://s6.uupload.ir/files/هر-آنچه-باید-در-مورد-کالاف-دیوتی-بدانیدتریلر_gy0l.jpg'); /* آدرس تصویر پس‌زمینه */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-family: sans-serif;
-            margin: 0;
-            padding: 0;
         }
-
-        .cp-container {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cp-logo {
-            width: 50px;
-            height: 50px;
-            background-color: #FFD700;
-            color: black;
+        .message {
+            background: rgba(0, 0, 0, 0.5); /* بکگراند نیمه‌شفاف برای متن */
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
             font-size: 24px;
-            font-weight: bold;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
-        }
-
-        .cp-amount {
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .inventory-button {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background-color: #1a1a1a;
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .inventory-popup {
-            position: fixed;
-            top: 80px;
-            right: 15px;
-            background-color: #1a1a1a;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 250px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-            display: none;
-        }
-
-        .inventory-popup h3 {
-            margin: 0 0 10px;
-            color: #FFD700;
-        }
-
-        .inventory-popup ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .inventory-popup li {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        h1 {
-            margin-top: 100px;
             text-align: center;
-        }
-
-        .guns-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        .gun {
-            background-color: #1a1a1a;
-            border-radius: 20px;
-            padding: 15px;
-            width: 300px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-        }
-
-        .gun:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .gun img {
-            width: 100%;
-            border-radius: 15px;
-        }
-
-        .gun h2 {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .buy-button {
-            display: block;
-            padding: 10px;
-            margin: 10px auto 0 auto;
-            font-size: 16px;
-            background-color: #FFD700;
-            color: black;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .buy-button:disabled {
-            background-color: gray;
-            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
-
-    <div class="cp-container">
-        <div class="cp-logo">CP</div>
-        <div class="cp-amount">200</div>
+    <div class="message">
+        سرورها در حال بروزرسانی هستند. لطفاً صبر کنید...
     </div>
-
-    <button class="inventory-button" onclick="toggleInventory()">دارایی‌ها</button>
-
-    <div class="inventory-popup" id="inventoryPopup">
-        <h3>آیتم‌های خریداری شده:</h3>
-        <ul id="inventoryList"></ul>
-    </div>
-
-    <h1>گان‌های Call of Duty Mobile 🎯</h1>
-
-    <div class="guns-container">
-
-        <div class="gun">
-            <h2>دیل - زیلات (50 CP)</h2>
-            <img src="https://s6.uupload.ir/files/hq720_v85q.jpg" alt="Dill Gun">
-            <button class="buy-button" data-name="دیل - زیلات" data-cost="50" onclick="buyItem(this)">خرید</button>
-        </div>
-
-        <div class="gun">
-            <h2>اچس - موزیکال (70 CP)</h2>
-            <img src="https://s6.uupload.ir/files/7f4ca79dc7b9da6a930898c5090c21f8_chimage-1-1024x460_q5fa.jpg" alt="HS Legend Gun">
-            <button class="buy-button" data-name="اچس - موزیکال" data-cost="70" onclick="buyItem(this)">خرید</button>
-        </div>
-
-        <div class="gun">
-            <h2>کیلو - متیک (120 CP)</h2>
-            <img src="https://s6.uupload.ir/files/62926955-8482-l_1195_rnj6.jpg" alt="Kilo Mythic Gun">
-            <button class="buy-button" data-name="کیلو - متیک" data-cost="120" onclick="buyItem(this)">خرید</button>
-        </div>
-
-        <div class="gun">
-            <h2>دیل - متیک (150 CP)</h2>
-            <img src="https://s6.uupload.ir/files/63265058-6451-l_2270_0dpp.jpg" alt="Dill Mythic Gun">
-            <button class="buy-button" data-name="دیل - متیک" data-cost="150" onclick="buyItem(this)">خرید</button>
-        </div>
-
-    </div>
-
-    <script>
-        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-
-        function updateInventoryDisplay() {
-            const list = document.getElementById('inventoryList');
-            list.innerHTML = '';
-            inventory.forEach(item => {
-                let li = document.createElement('li');
-                li.textContent = item;
-                list.appendChild(li);
-            });
-        }
-
-        function buyItem(button) {
-            const name = button.getAttribute('data-name');
-            const cost = parseInt(button.getAttribute('data-cost'));
-            const cpElement = document.querySelector('.cp-amount');
-            let currentCP = parseInt(cpElement.textContent);
-
-            if (currentCP >= cost) {
-                if (!inventory.includes(name)) {
-                    currentCP -= cost;
-                    cpElement.textContent = currentCP;
-                    inventory.push(name);
-                    localStorage.setItem('inventory', JSON.stringify(inventory));
-                    button.disabled = true;
-                    alert(`خرید ${name} با موفقیت انجام شد ✅`);
-                    updateInventoryDisplay();
-                }
-            } else {
-                alert("CP کافی نیست ❌");
-            }
-        }
-
-        function toggleInventory() {
-            const popup = document.getElementById('inventoryPopup');
-            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        }
-
-        window.onload = () => {
-            updateInventoryDisplay();
-            document.querySelectorAll('.buy-button').forEach(button => {
-                const name = button.getAttribute('data-name');
-                if (inventory.includes(name)) {
-                    button.disabled = true;
-                }
-            });
-        };
-    </script>
-
 </body>
 </html>
