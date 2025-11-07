@@ -5,245 +5,56 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>گان‌های کلاف</title>
 <style>
-body {
-    background-color: #0d0d0d;
-    color: white;
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-/* CP */
-.cp-container {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 2002; /* بالاتر از مودال‌ها */
-}
-
-.cp-logo {
-    width: 50px;
-    height: 50px;
-    background-color: #FFD700;
-    color: black;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
-}
-
-.cp-amount {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-/* دکمه‌ها بالا */
-.inventory-button {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    background-color: #1a1a1a;
-    color: #FFD700;
-    border: 2px solid #FFD700;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    z-index: 2002;
-}
-
-.settings-button {
-    position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #1a1a1a;
-    color: #FFD700;
-    border: 2px solid #FFD700;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    z-index: 2002;
-}
-
-/* مودال عمومی */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #1a1a1a;
-    padding: 20px 30px;
-    border-radius: 12px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-    min-width: 260px;
-}
-
-.modal-content h3 { margin-top: 0; color: #FFD700; }
-
-.confirm-yes {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    margin: 8px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.confirm-no {
-    background-color: #FF4C4C;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    margin: 8px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* مودال دارایی‌ها */
-.inventory-popup {
-    position: fixed;
-    top: 80px;
-    right: 15px;
-    background-color: #1a1a1a;
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 320px;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-    display: none;
-    z-index: 2003; /* بالاتر از همه مودال‌ها */
-}
-
-.inventory-popup h3 {
-    margin: 0 0 10px;
-    color: #FFD700;
-}
-
-.inventory-popup ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.inventory-popup li {
-    margin: 6px 0;
-    font-size: 14px;
-}
-
-/* صفحه گان‌ها */
-h1 {
-    margin-top: 100px;
-    text-align: center;
-}
-
-.guns-container, .crates-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    padding: 20px;
-}
-
-.gun, .crate {
-    background-color: #1a1a1a;
-    border-radius: 16px;
-    padding: 12px;
-    width: 300px;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.06);
-    transition: 0.2s;
-}
-
-.gun:hover, .crate:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-}
-
-.gun img, .crate img {
-    width: 100%;
-    border-radius: 12px;
-    display: block;
-    min-height: 140px;
-    object-fit: cover;
-}
-
-.gun h2, .crate h2 {
-    margin-top: 12px;
-    text-align: center;
-}
-
-.buy-button {
-    display: block;
-    padding: 10px;
-    margin: 10px auto 0 auto;
-    font-size: 16px;
-    background-color: #FFD700;
-    color: black;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.buy-button:disabled {
-    background-color: gray;
-    cursor: not-allowed;
-}
-
-/* کریت رایگان */
-.crate.free {
-    border: 2px solid purple;
-    background-color: #4b0082; /* پشت زمینه بنفش */
-    color: white;
-}
+body { background-color: #0d0d0d; color: white; font-family: sans-serif; margin:0; padding:0; }
+.cp-container { position: fixed; top:15px; left:15px; display:flex; align-items:center; gap:10px; z-index:2002; }
+.cp-logo { width:50px;height:50px;background-color:#FFD700;color:black;font-size:24px;font-weight:bold;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 8px rgba(255,215,0,0.7);}
+.cp-amount{font-size:22px;font-weight:bold;}
+.inventory-button{position:fixed;top:15px;right:15px;background-color:#1a1a1a;color:#FFD700;border:2px solid #FFD700;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:16px;z-index:2002;}
+.settings-button{position:fixed;top:15px;left:50%;transform:translateX(-50%);background-color:#1a1a1a;color:#FFD700;border:2px solid #FFD700;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:bold;z-index:2002;}
+.modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.7);justify-content:center;align-items:center;}
+.modal-content{background-color:#1a1a1a;padding:20px 30px;border-radius:12px;text-align:center;color:white;box-shadow:0 0 20px rgba(255,215,0,0.2);min-width:260px;}
+.modal-content h3 { margin-top:0; color:#FFD700;}
+.confirm-yes{background-color:#4CAF50;color:white;border:none;padding:10px 16px;margin:8px;border-radius:10px;cursor:pointer;font-weight:bold;}
+.confirm-no{background-color:#FF4C4C;color:white;border:none;padding:10px 16px;margin:8px;border-radius:10px;cursor:pointer;font-weight:bold;}
+.inventory-popup{position:fixed;top:80px;right:15px;background-color:#1a1a1a;padding:20px;border-radius:15px;max-width:320px;box-shadow:0 0 15px rgba(255,215,0,0.3);display:none;z-index:2003;}
+.inventory-popup h3{margin:0 0 10px;color:#FFD700;}
+.inventory-popup ul{list-style:none;padding:0;margin:0;}
+.inventory-popup li{margin:6px 0;font-size:14px;}
+.cp-message{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(0,255,0,0.2);border:2px solid limegreen;padding:12px 20px;border-radius:12px;color:white;font-weight:bold;font-size:16px;display:none;z-index:3000;box-shadow:0 0 15px limegreen;}
+h1{margin-top:100px;text-align:center;}
+.guns-container,.crates-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;padding:20px;}
+.gun,.crate{background-color:#1a1a1a;border-radius:16px;padding:12px;width:300px;box-shadow:0 0 12px rgba(255,255,255,0.06);transition:0.2s;}
+.gun:hover,.crate:hover{transform:translateY(-6px);box-shadow:0 10px 25px rgba(0,0,0,0.6);}
+.gun img,.crate img{width:100%;border-radius:12px;display:block;min-height:140px;object-fit:cover;}
+.gun h2,.crate h2{margin-top:12px;text-align:center;}
+.buy-button{display:block;padding:10px;margin:10px auto 0 auto;font-size:16px;background-color:#FFD700;color:black;border:none;border-radius:10px;cursor:pointer;font-weight:bold;}
+.buy-button:disabled{background-color:gray;cursor:not-allowed;}
+.gun.mythic{border:2px solid red;}
+.gun.legend{border:2px solid yellow;}
+.crate.free{border:2px solid purple;background-color:#4b0082;color:white;}
+.cp-effect{animation:glow 1s ease-in-out infinite alternate;}
+@keyframes glow{from{box-shadow:0 0 8px limegreen;}to{box-shadow:0 0 16px limegreen;}}
 </style>
 </head>
 <body>
 
-<div class="cp-container">
-    <div class="cp-logo">CP</div>
-    <div class="cp-amount">0</div>
-</div>
-
+<div class="cp-container"><div class="cp-logo">CP</div><div class="cp-amount">0</div></div>
 <button class="settings-button" id="openSettings">⚙️ تنظیمات</button>
 <button class="inventory-button" id="invBtn">دارایی‌ها</button>
+<div class="cp-message" id="cpMessage">شما 0.2 سی پی دریافت کردین ✅</div>
 
-<!-- مودال تنظیمات -->
 <div id="settingsModal" class="modal">
     <div class="modal-content">
         <h3>تنظیمات</h3>
         <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
             <button class="confirm-yes" id="settingsDelete">حذف اکانت</button>
-            <button class="confirm-yes" id="freeCpBtn">CP رایگان (+0.1)</button>
+            <button class="confirm-yes" id="freeCpBtn">CP رایگان (+0.2)</button>
             <button class="confirm-yes" id="openCrates">کریت</button>
             <button class="confirm-no" id="closeSettings">بستن</button>
         </div>
     </div>
 </div>
 
-<!-- مودال حذف اکانت -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <p>آیا مطمئن هستید که می‌خواهید اکانت حذف شود؟</p>
@@ -254,7 +65,6 @@ h1 {
     </div>
 </div>
 
-<!-- مودال دارایی‌ها -->
 <div class="inventory-popup" id="inventoryPopup">
     <h3>آیتم‌های خریداری شده:</h3>
     <ul id="inventoryList"></ul>
@@ -263,162 +73,48 @@ h1 {
 <h1>گان‌های Call of Duty Mobile 🎯</h1>
 
 <div class="guns-container" id="gunsContainer">
-    <div class="gun">
-        <h2>دیل - زیلات (50 CP)</h2>
-        <img src="https://s6.uupload.ir/files/hq720_v85q.jpg" alt="Dill Gun">
-        <button class="buy-button" data-name="دیل - زیلات" data-cost="50">خرید</button>
-    </div>
-
-    <div class="gun">
-        <h2>اچس - موزیکال (70 CP)</h2>
-        <img src="https://s6.uupload.ir/files/7f4ca79dc7b9da6a930898c5090c21f8_chimage-1-1024x460_q5fa.jpg" alt="HS Legend Gun">
-        <button class="buy-button" data-name="اچس - موزیکال" data-cost="70">خرید</button>
-    </div>
-
-    <div class="gun">
-        <h2>کیلو - متیک (120 CP)</h2>
-        <img src="https://s6.uupload.ir/files/62926955-8482-l_1195_rnj6.jpg" alt="Kilo Mythic Gun">
-        <button class="buy-button" data-name="کیلو - متیک" data-cost="120">خرید</button>
-    </div>
-
-    <div class="gun">
-        <h2>دیل - متیک (150 CP)</h2>
-        <img src="https://s6.uupload.ir/files/63265058-6451-l_2270_0dpp.jpg" alt="Dill Mythic Gun">
-        <button class="buy-button" data-name="دیل - متیک" data-cost="150">خرید</button>
-    </div>
-
-    <div class="gun">
-        <h2>اسپکتر - متیک (5000 CP)</h2>
-        <img src="https://s6.uupload.ir/files/spectre-t3-codm_i1i0.jpg" alt="Spectre Mythic">
-        <button class="buy-button" data-name="اسپکتر - متیک" data-cost="5000">خرید</button>
-    </div>
-
-    <div class="gun">
-        <h2>گانزو - لجند (2000 CP)</h2>
-        <img src="https://uploadkon.ir/uploads/42eb06_2539090355-4649-l-6149.jpg" alt="Gunzo Legend">
-        <button class="buy-button" data-name="گانزو - لجند" data-cost="2000">خرید</button>
-    </div>
+    <div class="gun legend"><h2>دیل - لجند (2000 CP)</h2><img src="https://s6.uupload.ir/files/hq720_v85q.jpg"><button class="buy-button" data-name="دیل - لجند" data-cost="2000">خرید</button></div>
+    <div class="gun legend"><h2>اچس - لجند (1500 CP)</h2><img src="https://s6.uupload.ir/files/7f4ca79dc7b9da6a930898c5090c21f8_chimage-1-1024x460_q5fa.jpg"><button class="buy-button" data-name="اچس - لجند" data-cost="1500">خرید</button></div>
+    <div class="gun mythic"><h2>کیلو - متیک (3500 CP)</h2><img src="https://s6.uupload.ir/files/62926955-8482-l_1195_rnj6.jpg"><button class="buy-button" data-name="کیلو - متیک" data-cost="3500">خرید</button></div>
+    <div class="gun mythic"><h2>دیل - متیک (3600 CP)</h2><img src="https://s6.uupload.ir/files/63265058-6451-l_2270_0dpp.jpg"><button class="buy-button" data-name="دیل - متیک" data-cost="3600">خرید</button></div>
+    <div class="gun mythic"><h2>اسپکتر - متیک (6500 CP)</h2><img src="https://s6.uupload.ir/files/spectre-t3-codm_i1i0.jpg"><button class="buy-button" data-name="اسپکتر - متیک" data-cost="6500">خرید</button></div>
+    <div class="gun legend"><h2>گانزو - لجند (4000 CP)</h2><img src="https://uploadkon.ir/uploads/42eb06_2539090355-4649-l-6149.jpg"><button class="buy-button" data-name="گانزو - لجند" data-cost="4000">خرید</button></div>
+    <div class="gun legend"><h2>فرعون - مصر (4500 CP)</h2><img src="https://s6.uupload.ir/files/phantom-osiris-1280x720_8y67.jpg"><button class="buy-button" data-name="فرعون - مصر" data-cost="4500">خرید</button></div>
 </div>
 
-<!-- صفحه کریت‌ها -->
 <div class="crates-container" id="cratesContainer" style="display:none;">
-    <div class="crate free">
-        <h2>لواورد - اصلی (رایگان)</h2>
-        <img src="https://s6.uupload.ir/files/a1ab1a78bc85bb8cd04a5fa51132981d_chimage-1-scaled_2d15.jpg" alt="Levard">
-        <button class="buy-button" data-name="لواورد - اصلی" data-cost="0">دریافت رایگان</button>
-    </div>
-    <!-- می‌توان کریت‌های بیشتری اضافه کرد -->
-    <button class="confirm-no" id="backFromCrates" style="margin-top:20px;">بازگشت</button>
+<h2 style="color:red;text-align:center;">هیچ‌چیز فعلا رایگان نیست ❌</h2>
+<button class="confirm-no" id="backFromCrates" style="margin-top:20px;">بازگشت</button>
 </div>
 
 <script>
-let username = localStorage.getItem('username');
-let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-let currentCP = localStorage.getItem('cp') ? parseFloat(localStorage.getItem('cp')) : 0;
+let username=localStorage.getItem('username');
+let inventory=JSON.parse(localStorage.getItem('inventory'))||[];
+let currentCP=localStorage.getItem('cp')?parseFloat(localStorage.getItem('cp')):0;
 
-function renderCP() {
-    const el = document.querySelector('.cp-amount');
-    if (Number.isInteger(currentCP)) el.textContent = currentCP;
-    else el.textContent = currentCP.toFixed(1);
-}
+function renderCP(){document.querySelector('.cp-amount').textContent=Number.isInteger(currentCP)?currentCP:currentCP.toFixed(1);}
+function updateInventoryDisplay(){const list=document.getElementById('inventoryList');list.innerHTML='';inventory.forEach(item=>{let li=document.createElement('li');li.textContent=item;list.appendChild(li);});}
+function showCPMessage(amount){const msg=document.getElementById('cpMessage');msg.textContent=`شما ${amount} سی پی دریافت کردین ✅`;msg.style.display='block';msg.classList.add('cp-effect');setTimeout(()=>{msg.style.display='none';msg.classList.remove('cp-effect');},2000);}
+function initialize(){if(!username){username=prompt("نام کاربری خود را وارد کنید:");if(!username) username="کاربر";localStorage.setItem('username',username);currentCP=0;localStorage.setItem('cp',currentCP);alert(`خوش اومدی ${username}! 🎮`);}else{currentCP=localStorage.getItem('cp')?parseFloat(localStorage.getItem('cp')):0;}renderCP();updateInventoryDisplay();document.querySelectorAll('.buy-button').forEach(button=>{if(inventory.includes(button.getAttribute('data-name'))) button.disabled=true;});}
 
-function updateInventoryDisplay() {
-    const list = document.getElementById('inventoryList');
-    list.innerHTML = '';
-    inventory.forEach(item => {
-        let li = document.createElement('li');
-        li.textContent = item;
-        list.appendChild(li);
-    });
-}
+function buyItemByButton(button){const name=button.getAttribute('data-name');const cost=parseFloat(button.getAttribute('data-cost'));if(currentCP>=cost){if(!inventory.includes(name)){currentCP-=cost;localStorage.setItem('cp',currentCP);renderCP();inventory.push(name);localStorage.setItem('inventory',JSON.stringify(inventory));button.disabled=true;alert(`${cost===0?"دریافت رایگان":"خرید"} ${name} با موفقیت انجام شد ✅`);updateInventoryDisplay();}}else alert("CP کافی نیست ❌");}
 
-function initialize() {
-    if (!username) {
-        username = prompt("نام کاربری خود را وارد کنید:");
-        if (!username) username = "کاربر";
-        localStorage.setItem('username', username);
+const settingsModal=document.getElementById('settingsModal');
+const deleteModal=document.getElementById('deleteModal');
+const inventoryPopup=document.getElementById('inventoryPopup');
+const cratesContainer=document.getElementById('cratesContainer');
 
-        if (username.trim().toLowerCase() === "چت جی پی تی") {
-            currentCP = 10000;
-            alert("موبینا داداش چطوری");
-        } else {
-            currentCP = 0;
-            alert(`خوش اومدی ${username}! 🎮`);
-        }
-
-        localStorage.setItem('cp', currentCP);
-    } else {
-        currentCP = localStorage.getItem('cp') ? parseFloat(localStorage.getItem('cp')) : 0;
-    }
-
-    renderCP();
-    updateInventoryDisplay();
-
-    document.querySelectorAll('.buy-button').forEach(button => {
-        const name = button.getAttribute('data-name');
-        if (inventory.includes(name)) button.disabled = true;
-    });
-}
-
-function buyItemByButton(button) {
-    const name = button.getAttribute('data-name');
-    const cost = parseFloat(button.getAttribute('data-cost'));
-    if (currentCP >= cost) {
-        if (!inventory.includes(name)) {
-            currentCP -= cost;
-            localStorage.setItem('cp', currentCP);
-            renderCP();
-            inventory.push(name);
-            localStorage.setItem('inventory', JSON.stringify(inventory));
-            button.disabled = true;
-            alert(`${cost===0 ? "دریافت رایگان" : "خرید"} ${name} با موفقیت انجام شد ✅`);
-            updateInventoryDisplay();
-        }
-    } else {
-        alert("CP کافی نیست ❌");
-    }
-}
-
-document.addEventListener('click', function(e){
-    const btn = e.target.closest('.buy-button');
-    if (btn) buyItemByButton(btn);
-});
-
-/* مودال‌ها */
-const settingsModal = document.getElementById('settingsModal');
-const deleteModal = document.getElementById('deleteModal');
-const inventoryPopup = document.getElementById('inventoryPopup');
-const cratesContainer = document.getElementById('cratesContainer');
-
-document.getElementById('openSettings').addEventListener('click', ()=>{settingsModal.style.display='flex';});
-document.getElementById('closeSettings').addEventListener('click', ()=>{settingsModal.style.display='none';});
-document.getElementById('invBtn').addEventListener('click', ()=>{inventoryPopup.style.display = inventoryPopup.style.display==='block'?'none':'block';});
-document.getElementById('settingsDelete').addEventListener('click', ()=>{deleteModal.style.display='flex';});
-document.getElementById('confirmDelete').addEventListener('click', ()=>{localStorage.clear(); location.reload();});
-document.getElementById('cancelDelete').addEventListener('click', ()=>{deleteModal.style.display='none';});
-
-/* CP رایگان */
-document.getElementById('freeCpBtn').addEventListener('click', function(event){
-    if(!event.isTrusted) return;
-    currentCP = parseFloat((currentCP + 0.1).toFixed(1));
-    localStorage.setItem('cp', currentCP);
-    renderCP();
-    alert("✅ 0.1 CP اضافه شد");
-});
-
-/* کریت‌ها */
-document.getElementById('openCrates').addEventListener('click', ()=>{
-    settingsModal.style.display='none';
-    document.getElementById('gunsContainer').style.display='none';
-    cratesContainer.style.display='flex';
-});
-
-document.getElementById('backFromCrates').addEventListener('click', ()=>{
-    cratesContainer.style.display='none';
-    document.getElementById('gunsContainer').style.display='flex';
-});
-
-window.addEventListener('load', initialize);
+document.getElementById('openSettings').addEventListener('click',()=>{settingsModal.style.display='flex';});
+document.getElementById('closeSettings').addEventListener('click',()=>{settingsModal.style.display='none';});
+document.getElementById('invBtn').addEventListener('click',()=>{inventoryPopup.style.display = inventoryPopup.style.display==='block'?'none':'block';});
+document.getElementById('settingsDelete').addEventListener('click',()=>{deleteModal.style.display='flex';});
+document.getElementById('confirmDelete').addEventListener('click',()=>{localStorage.clear(); location.reload();});
+document.getElementById('cancelDelete').addEventListener('click',()=>{deleteModal.style.display='none';});
+document.getElementById('freeCpBtn').addEventListener('click',e=>{if(!e.isTrusted) return; currentCP=parseFloat((currentCP+0.2).toFixed(1)); localStorage.setItem('cp',currentCP); renderCP(); showCPMessage(0.2);});
+document.addEventListener('click',e=>{const btn=e.target.closest('.buy-button');if(btn) buyItemByButton(btn);});
+document.getElementById('openCrates').addEventListener('click',()=>{settingsModal.style.display='none';document.getElementById('gunsContainer').style.display='none';cratesContainer.style.display='flex';});
+document.getElementById('backFromCrates').addEventListener('click',()=>{cratesContainer.style.display='none';document.getElementById('gunsContainer').style.display='flex';});
+window.addEventListener('load',initialize);
 </script>
 </body>
-    </html>
+                                                               </html>
