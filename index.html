@@ -11,8 +11,8 @@ body { background-color: #0d0d0d; color: white; font-family: sans-serif; margin:
 .cp-amount{font-size:22px;font-weight:bold;}
 .inventory-button{position:fixed;top:15px;right:15px;background-color:#1a1a1a;color:#FFD700;border:2px solid #FFD700;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:16px;z-index:2002;}
 .settings-button{position:fixed;top:15px;left:50%;transform:translateX(-50%);background-color:#1a1a1a;color:#FFD700;border:2px solid #FFD700;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:bold;z-index:2002;}
-.modal{display:none;position:fixed;z-index:3000;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.7);justify-content:center;align-items:center;}
-.modal-content{background-color:#1a1a1a;padding:25px 35px;border-radius:12px;text-align:center;color:white;box-shadow:0 0 20px rgba(255,215,0,0.3);min-width:280px;}
+.modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,0.7);justify-content:center;align-items:center;}
+.modal-content{background-color:#1a1a1a;padding:20px 30px;border-radius:12px;text-align:center;color:white;box-shadow:0 0 20px rgba(255,215,0,0.2);min-width:260px;}
 .modal-content h3 { margin-top:0; color:#FFD700;}
 .confirm-yes{background-color:#4CAF50;color:white;border:none;padding:10px 16px;margin:8px;border-radius:10px;cursor:pointer;font-weight:bold;}
 .confirm-no{background-color:#FF4C4C;color:white;border:none;padding:10px 16px;margin:8px;border-radius:10px;cursor:pointer;font-weight:bold;}
@@ -20,22 +20,23 @@ body { background-color: #0d0d0d; color: white; font-family: sans-serif; margin:
 .inventory-popup h3{margin:0 0 10px;color:#FFD700;}
 .inventory-popup ul{list-style:none;padding:0;margin:0;}
 .inventory-popup li{margin:6px 0;font-size:14px;}
-.cp-message,.buy-message{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(0,255,0,0.2);border:2px solid limegreen;padding:12px 20px;border-radius:12px;color:white;font-weight:bold;font-size:16px;display:none;z-index:4000;box-shadow:0 0 15px limegreen;}
+.cp-message{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(0,255,0,0.2);border:2px solid limegreen;padding:12px 20px;border-radius:12px;color:white;font-weight:bold;font-size:16px;display:none;z-index:3000;box-shadow:0 0 15px limegreen;}
 h1{margin-top:100px;text-align:center;}
-.guns-container,.crates-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;padding:20px;}
-.gun,.crate{background-color:#1a1a1a;border-radius:16px;padding:12px;width:300px;box-shadow:0 0 12px rgba(255,255,255,0.06);transition:0.2s;}
-.gun:hover,.crate:hover{transform:translateY(-6px);box-shadow:0 10px 25px rgba(0,0,0,0.6);}
-.gun img,.crate img{width:100%;border-radius:12px;display:block;min-height:140px;object-fit:cover;}
-.gun h2,.crate h2{margin-top:12px;text-align:center;}
+.guns-container,.crates-container,.battlepass-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;padding:20px;}
+.gun,.crate,.battlepass{background-color:#1a1a1a;border-radius:16px;padding:12px;width:300px;box-shadow:0 0 12px rgba(255,255,255,0.06);transition:0.2s;}
+.gun:hover,.crate:hover,.battlepass:hover{transform:translateY(-6px);box-shadow:0 10px 25px rgba(0,0,0,0.6);}
+.gun img,.crate img,.battlepass img{width:100%;border-radius:12px;display:block;min-height:140px;object-fit:cover;}
+.gun h2,.crate h2,.battlepass h2{margin-top:12px;text-align:center;}
 .buy-button{display:block;padding:10px;margin:10px auto 0 auto;font-size:16px;background-color:#FFD700;color:black;border:none;border-radius:10px;cursor:pointer;font-weight:bold;}
 .buy-button:disabled{background-color:gray;cursor:not-allowed;}
 .gun.mythic{border:2px solid red;}
 .gun.legend{border:2px solid yellow;}
 .crate{border:2px solid purple;box-shadow:0 0 20px rgba(128,0,255,0.6);}
+.crate.free{border:2px solid purple;}
+.battlepass{border:2px solid #00BFFF;box-shadow:0 0 20px rgba(0,191,255,0.6);}
+.strike{ text-decoration: line-through; color: gray; }
 .cp-effect{animation:glow 1s ease-in-out infinite alternate;}
 @keyframes glow{from{box-shadow:0 0 8px limegreen;}to{box-shadow:0 0 16px limegreen;}}
-.username-modal input{width:100%;padding:10px;border-radius:8px;border:none;margin-top:10px;margin-bottom:15px;font-size:16px;text-align:center;}
-.username-modal button{background-color:#FFD700;color:black;font-weight:bold;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -43,25 +44,17 @@ h1{margin-top:100px;text-align:center;}
 <div class="cp-container"><div class="cp-logo">CP</div><div class="cp-amount">0</div></div>
 <button class="settings-button" id="openSettings">⚙️ تنظیمات</button>
 <button class="inventory-button" id="invBtn">دارایی‌ها</button>
-<div class="cp-message" id="cpMessage">شما 0.2 سی پی دریافت کردین ✅</div>
-<div class="buy-message" id="buyMessage"></div>
-
-<div id="usernameModal" class="modal username-modal">
-  <div class="modal-content">
-    <h3>🎮 خوش اومدی بازیکن!</h3>
-    <p>نام کاربری خود را وارد کنید:</p>
-    <input type="text" id="usernameInput" placeholder="مثلاً: شاهین‌کلافی">
-    <button id="saveUsername">شروع بازی 🚀</button>
-  </div>
-</div>
+<div class="cp-message" id="cpMessage"></div>
 
 <div id="settingsModal" class="modal">
     <div class="modal-content">
         <h3>تنظیمات</h3>
         <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
             <button class="confirm-yes" id="settingsDelete">حذف اکانت</button>
-            <button class="confirm-yes" id="freeCpBtn">CP رایگان (+0.2)</button>
-            <button class="confirm-yes" id="openCrates">کریت</button>
+            <button class="confirm-yes" id="freeCpBtn">CP رایگان (+0.5)</button>
+            <button class="confirm-yes" id="openCrates">کریت‌ها</button>
+            <button class="confirm-yes" id="openBattlePass">بتل‌پس‌ها</button>
+            <button class="confirm-yes" id="checkBalance">موجودی CP</button>
             <button class="confirm-no" id="closeSettings">بستن</button>
         </div>
     </div>
@@ -78,21 +71,22 @@ h1{margin-top:100px;text-align:center;}
 </div>
 
 <div class="inventory-popup" id="inventoryPopup">
-    <h3>آیتم‌های خریداری شده:</h3>
+    <h3>آیتم‌های خریداری‌شده:</h3>
     <ul id="inventoryList"></ul>
 </div>
 
 <h1>گان‌های Call of Duty Mobile 🎯</h1>
 
 <div class="guns-container" id="gunsContainer">
-    <div class="gun legend"><h2>دیل - لجند (2000 CP)</h2><img src="https://s6.uupload.ir/files/hq720_v85q.jpg"><button class="buy-button" data-name="دیل - لجند" data-cost="2000">خرید</button></div>
-    <div class="gun legend"><h2>اچس - لجند (1500 CP)</h2><img src="https://s6.uupload.ir/files/7f4ca79dc7b9da6a930898c5090c21f8_chimage-1-1024x460_q5fa.jpg"><button class="buy-button" data-name="اچس - لجند" data-cost="1500">خرید</button></div>
+    <div class="gun legend"><h2>دیل - لجند (2000 CP)</h2><img src="https://s6.uupload.ir/files/hq720_mjy1.jpg"><button class="buy-button" data-name="دیل - لجند" data-cost="2000">خرید</button></div>
+    <div class="gun legend"><h2>اچس - لجند (1500 CP)</h2><img src="https://s6.uupload.ir/files/7f4ca79dc7b9da6a930898c5090c21f8_chimage-1-1024x460_vz1y.jpg"><button class="buy-button" data-name="اچس - لجند" data-cost="1500">خرید</button></div>
     <div class="gun mythic"><h2>کیلو - متیک (3500 CP)</h2><img src="https://s6.uupload.ir/files/62926955-8482-l_1195_rnj6.jpg"><button class="buy-button" data-name="کیلو - متیک" data-cost="3500">خرید</button></div>
     <div class="gun mythic"><h2>دیل - متیک (3600 CP)</h2><img src="https://s6.uupload.ir/files/63265058-6451-l_2270_0dpp.jpg"><button class="buy-button" data-name="دیل - متیک" data-cost="3600">خرید</button></div>
     <div class="gun mythic"><h2>اسپکتر - متیک (6500 CP)</h2><img src="https://s6.uupload.ir/files/spectre-t3-codm_i1i0.jpg"><button class="buy-button" data-name="اسپکتر - متیک" data-cost="6500">خرید</button></div>
     <div class="gun legend"><h2>فرعون - مصر (4500 CP)</h2><img src="https://s6.uupload.ir/files/phantom-osiris-1280x720_vyjj.jpg"><button class="buy-button" data-name="فرعون - مصر" data-cost="4500">خرید</button></div>
     <div class="gun mythic"><h2>یوزی - عنکبوتی (5500 CP)</h2><img src="https://s6.uupload.ir/files/66572151-5924-l_8973_pf70.jpg"><button class="buy-button" data-name="یوزی - عنکبوتی" data-cost="5500">خرید</button></div>
     <div class="gun mythic"><h2>گرن - تاریک (6500 CP)</h2><img src="https://s6.uupload.ir/files/56386420-7907-l_2149_4fgn.jpg"><button class="buy-button" data-name="گرن - تاریک" data-cost="6500">خرید</button></div>
+    <div class="gun legend"><h2>ارپیچی - خنده (<span class="strike">3500</span> ➜ 1500 CP)</h2><img src="https://s6.uupload.ir/files/ahr0chm6ly9pcnmwms53axnnb29ulmnvbs9pcnmwms84nc82yi84nc81ys9pcnmwmv8xmdgwedywn19pdlpubexzzv80ntu3otc3xze3mdg0mjgxmdc3ndk2nji4ndiuanblzw_(1)_8nw1.jpg"><button class="buy-button" data-name="ارپیچی - خنده" data-cost="1500">خرید</button></div>
 </div>
 
 <div class="crates-container" id="cratesContainer" style="display:none;">
@@ -101,72 +95,101 @@ h1{margin-top:100px;text-align:center;}
     <img src="https://s6.uupload.ir/files/broken-skin-igame-min_(1)_99dy.jpg" alt="ویچ-واردن">
     <button class="buy-button" data-name="ویچ-واردن" data-cost="10">خرید</button>
   </div>
+  <div class="crate free">
+    <h2>بروکن (رایگان)</h2>
+    <img src="https://s6.uupload.ir/files/a1ab1a78bc85bb8cd04a5fa51132981d_chimage-1-scaled_rc0f.jpg" alt="بروکن">
+    <button class="buy-button" data-name="بروکن" data-cost="0">دریافت</button>
+  </div>
   <button class="confirm-no" id="backFromCrates" style="margin-top:20px;">بازگشت</button>
+</div>
+
+<div class="battlepass-container" id="battlepassContainer" style="display:none;">
+  <div class="battlepass">
+    <h2>بتل پس سیزن 1 (220 CP)</h2>
+    <img src="https://s6.uupload.ir/files/maxresdefault_hsm7.jpg" alt="بتل پس سیزن 1">
+    <button class="buy-button" data-name="بتل پس سیزن 1" data-cost="220">خرید</button>
+  </div>
+  <button class="confirm-no" id="backFromBattlepass" style="margin-top:20px;">بازگشت</button>
 </div>
 
 <script>
 let username=localStorage.getItem('username');
 let inventory=JSON.parse(localStorage.getItem('inventory'))||[];
-let currentCP=localStorage.getItem('cp')?parseFloat(localStorage.getItem('cp')):0;
+let currentCP=parseFloat(localStorage.getItem('cp')||0);
 
-function renderCP(){document.querySelector('.cp-amount').textContent=Number.isInteger(currentCP)?currentCP:currentCP.toFixed(1);}
-function updateInventoryDisplay(){const list=document.getElementById('inventoryList');list.innerHTML='';inventory.forEach(item=>{let li=document.createElement('li');li.textContent=item;list.appendChild(li);});}
-function showCPMessage(amount){const msg=document.getElementById('cpMessage');msg.textContent=`شما ${amount} سی پی دریافت کردین ✅`;msg.style.display='block';msg.classList.add('cp-effect');setTimeout(()=>{msg.style.display='none';msg.classList.remove('cp-effect');},2000);}
-function showBuyMessage(name){const msg=document.getElementById('buyMessage');msg.textContent=`🎉 خرید ${name} با موفقیت انجام شد ✅`;msg.style.display='block';msg.classList.add('cp-effect');setTimeout(()=>{msg.style.display='none';msg.classList.remove('cp-effect');},2000);}
+function renderCP(){document.querySelector('.cp-amount').textContent=currentCP.toFixed(1);}
+
+function updateInventoryDisplay(){
+    const list = document.getElementById('inventoryList');
+    list.innerHTML = '';
+    inventory.forEach(itemName => {
+        let li = document.createElement('li');
+        li.textContent = itemName;
+
+        // پیدا کردن عنصر اصلی برای تعیین نوع و رنگ
+        let itemEl = document.querySelector(`[data-name="${itemName}"]`);
+        if(itemEl){
+            if(itemEl.closest('.gun')?.classList.contains('legend')) li.style.color = 'yellow';
+            else if(itemEl.closest('.gun')?.classList.contains('mythic')) li.style.color = 'red';
+            else if(itemEl.closest('.crate')?.classList.contains('free')) li.style.color = 'purple';
+            else if(itemEl.closest('.battlepass')) li.style.color = '#00BFFF';
+        }
+
+        list.appendChild(li);
+    });
+}
+
+function showCPMessage(txt){
+    const msg=document.getElementById('cpMessage');
+    msg.textContent=txt;
+    msg.style.display='block';
+    msg.classList.add('cp-effect');
+    setTimeout(()=>{msg.style.display='none';msg.classList.remove('cp-effect');},2000);
+}
 
 function initialize(){
-  if(!username){
-    document.getElementById('usernameModal').style.display='flex';
-  } else {
+    if(!username){
+        username=prompt("نام کاربری خود را وارد کنید:");
+        if(!username)username="کاربر";
+        localStorage.setItem('username',username);
+        showCPMessage(`خوش اومدی ${username}! 🎮`);
+    }
     renderCP();
     updateInventoryDisplay();
-    document.querySelectorAll('.buy-button').forEach(button=>{
-      if(inventory.includes(button.getAttribute('data-name'))) button.disabled=true;
-    });
-  }
+    document.querySelectorAll('.buy-button').forEach(btn=>{if(inventory.includes(btn.dataset.name))btn.disabled=true;});
 }
 
-document.getElementById('saveUsername').addEventListener('click',()=>{
-  const input=document.getElementById('usernameInput').value.trim();
-  if(input){
-    username=input;
-    localStorage.setItem('username',username);
-    localStorage.setItem('cp',0);
-    localStorage.setItem('inventory',JSON.stringify([]));
-    document.getElementById('usernameModal').style.display='none';
-    alert(`خوش اومدی ${username}! 🎯`);
-    location.reload();
-  }
-});
-
-function buyItemByButton(button){
-  const name=button.getAttribute('data-name');
-  const cost=parseFloat(button.getAttribute('data-cost'));
-  if(currentCP>=cost){
-    if(!inventory.includes(name)){
-      currentCP-=cost;
-      localStorage.setItem('cp',currentCP);
-      renderCP();
-      inventory.push(name);
-      localStorage.setItem('inventory',JSON.stringify(inventory));
-      button.disabled=true;
-      showBuyMessage(name);
-      updateInventoryDisplay();
-    }
-  } else alert("CP کافی نیست ❌");
+function buyItem(btn){
+    let n=btn.dataset.name,c=parseFloat(btn.dataset.cost);
+    if(currentCP>=c){
+        if(!inventory.includes(n)){
+            currentCP-=c;
+            localStorage.setItem('cp',currentCP);
+            renderCP();
+            inventory.push(n);
+            localStorage.setItem('inventory',JSON.stringify(inventory));
+            btn.disabled=true;
+            showCPMessage(`${n} خریداری شد ✅`);
+            updateInventoryDisplay();
+        }
+    } else alert("CP کافی نیست ❌");
 }
 
-document.getElementById('openSettings').addEventListener('click',()=>{document.getElementById('settingsModal').style.display='flex';});
-document.getElementById('closeSettings').addEventListener('click',()=>{document.getElementById('settingsModal').style.display='none';});
-document.getElementById('invBtn').addEventListener('click',()=>{const inv=document.getElementById('inventoryPopup');inv.style.display=inv.style.display==='block'?'none':'block';});
-document.getElementById('settingsDelete').addEventListener('click',()=>{document.getElementById('deleteModal').style.display='flex';});
-document.getElementById('confirmDelete').addEventListener('click',()=>{localStorage.clear(); location.reload();});
-document.getElementById('cancelDelete').addEventListener('click',()=>{document.getElementById('deleteModal').style.display='none';});
-document.getElementById('freeCpBtn').addEventListener('click',e=>{if(!e.isTrusted) return; currentCP=parseFloat((currentCP+0.2).toFixed(1)); localStorage.setItem('cp',currentCP); renderCP(); showCPMessage(0.2);});
-document.addEventListener('click',e=>{const btn=e.target.closest('.buy-button');if(btn) buyItemByButton(btn);});
-document.getElementById('openCrates').addEventListener('click',()=>{document.getElementById('settingsModal').style.display='none';document.getElementById('gunsContainer').style.display='none';document.getElementById('cratesContainer').style.display='flex';});
-document.getElementById('backFromCrates').addEventListener('click',()=>{document.getElementById('cratesContainer').style.display='none';document.getElementById('gunsContainer').style.display='flex';});
-window.addEventListener('load',initialize);
+document.getElementById('openSettings').onclick=()=>{document.getElementById('settingsModal').style.display='flex';};
+document.getElementById('closeSettings').onclick=()=>{document.getElementById('settingsModal').style.display='none';};
+document.getElementById('invBtn').onclick=()=>{let i=document.getElementById('inventoryPopup');i.style.display=i.style.display==='block'?'none':'block';};
+document.getElementById('settingsDelete').onclick=()=>{document.getElementById('deleteModal').style.display='flex';};
+document.getElementById('confirmDelete').onclick=()=>{localStorage.clear();location.reload();};
+document.getElementById('cancelDelete').onclick=()=>{document.getElementById('deleteModal').style.display='none';};
+document.getElementById('freeCpBtn').onclick=e=>{if(!e.isTrusted)return;currentCP+=0.5;localStorage.setItem('cp',currentCP);renderCP();showCPMessage("شما 0.5 سی‌پی دریافت کردید ✅");};
+document.addEventListener('click',e=>{const btn=e.target.closest('.buy-button');if(btn)buyItem(btn);});
+document.getElementById('openCrates').onclick=()=>{document.getElementById('settingsModal').style.display='none';document.getElementById('gunsContainer').style.display='none';document.getElementById('cratesContainer').style.display='flex';};
+document.getElementById('backFromCrates').onclick=()=>{document.getElementById('cratesContainer').style.display='none';document.getElementById('gunsContainer').style.display='flex';};
+document.getElementById('openBattlePass').onclick=()=>{document.getElementById('settingsModal').style.display='none';document.getElementById('gunsContainer').style.display='none';document.getElementById('battlepassContainer').style.display='flex';};
+document.getElementById('backFromBattlepass').onclick=()=>{document.getElementById('battlepassContainer').style.display='none';document.getElementById('gunsContainer').style.display='flex';};
+document.getElementById('checkBalance').onclick=()=>{showCPMessage(`CP فعلی شما: ${currentCP.toFixed(1)} 💰`);};
+
+window.onload=initialize;
 </script>
 </body>
-</html>
+    </html>
